@@ -1,11 +1,16 @@
-import type { Metadata } from 'next';
-import './globals.css';
-import { Toaster } from "@/components/ui/toaster";
-import { ThemeProvider } from '@/components/theme-provider';
+import type { Metadata } from "next";
+import "./globals.css";
+import Providers from "@/components/providers";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "300", "500", "700", "900"],
+});
 
 export const metadata: Metadata = {
-  title: 'E-Advocate',
-  description: 'Find your soulmate with AI-powered matching.',
+  title: "E-Advocate",
+  description: "Find your soulmate with AI-powered matching.",
 };
 
 export default function RootLayout({
@@ -15,21 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Literata&display=swap" rel="stylesheet" />
-      </head>
       <body className="font-body antialiased">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-          </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
