@@ -1,7 +1,9 @@
-import { WelcomePage } from "@/components/welcome-page";
+import AdvocateServices from "@/components/advocate-services";
 
 export default function Home() {
   return (
-      <WelcomePage />
+    <div>
+      <AdvocateServices/>
+    </div>
   );
 }
