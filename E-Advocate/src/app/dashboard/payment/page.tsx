@@ -1,5 +1,12 @@
-import { PaymentPage } from "@/components/payment-page";
+"use client";
 
-export default function Payment() {
-    return <PaymentPage />;
+import { Suspense } from "react";
+import PaymentPageContent from "./PaymentPageContent";
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading payment details...</div>}>
+      <PaymentPageContent />
+    </Suspense>
+  );
 }
