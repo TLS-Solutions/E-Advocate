@@ -29,7 +29,7 @@ const steps = [
   "Declarations",
 ];
 
-const legalSpecializations = {
+const legalDepartments = {
     "Criminal Law": [
       "IPC & CrPC",
       "Cyber Crimes",
@@ -159,7 +159,7 @@ const legalSpecializations = {
     "Others": []
   };
   
-type Department = keyof typeof legalSpecializations;
+type Department = keyof typeof legalDepartments;
 const consultationModes = ["Phone", "Video", "In-person"];
 const languages = ["English", "Hindi", "Spanish", "French"];
 
@@ -190,7 +190,7 @@ export function ClientRegistrationPage() {
   const handleDepartmentChange = (value: string) => {
     const department = value as Department;
     setSelectedDepartment(department);
-    setSubDepartments(legalSpecializations[department] || []);
+    setSubDepartments(legalDepartments[department] || []);
   }
 
   const handleNext = () => {
@@ -439,20 +439,20 @@ export function ClientRegistrationPage() {
                                 <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                             <SelectContent className="bg-neutral-800 border-neutral-600 text-white">
-                                {Object.keys(legalSpecializations).map(dept => (
+                                {Object.keys(legalDepartments).map(dept => (
                                     <SelectItem key={dept} value={dept}>{dept}</SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     </div>
                      <div className="space-y-2">
-                        <Label htmlFor="specialization">Specialization *</Label>
+                        <Label htmlFor="Department">Department *</Label>
                         <Select required onValueChange={handleDepartmentChange}>
-                            <SelectTrigger id="specialization" className="bg-neutral-800 border-neutral-600 text-white">
-                                <SelectValue placeholder="Select specialization" />
+                            <SelectTrigger id="Department" className="bg-neutral-800 border-neutral-600 text-white">
+                                <SelectValue placeholder="Select Department" />
                             </SelectTrigger>
                            <SelectContent className="bg-neutral-800 border-neutral-600 text-white">
-                                {Object.keys(legalSpecializations).map(dept => (
+                                {Object.keys(legalDepartments).map(dept => (
                                     <SelectItem key={dept} value={dept}>{dept}</SelectItem>
                                 ))}
                             </SelectContent>
