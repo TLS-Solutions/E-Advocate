@@ -1,11 +1,10 @@
-
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ArrowLeft, Camera, FilePen, Info, UserCircle, Shield, Briefcase, Settings, Star, Search, Users, HelpCircle, BookOpen, ChevronRight, Menu, Award, Ticket, ShieldCheck, GraduationCap, MapPin, CalendarClock, BookUser, CheckCircle, Edit, Clock } from "lucide-react";
+import { ArrowLeft, Camera, FilePen, Info, UserCircle, Shield, Briefcase, Settings, Star, Search, Users, Ticket, HelpCircle, BookOpen, Award, ChevronRight, CheckCircle, Clock, Edit, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -16,8 +15,6 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 
 function AppSidebar() {
-  const router = useRouter();
-
   const menuItems = [
     { icon: FilePen, text: "Edit Profile", route: "/dashboard/profile" },
     { icon: Users, text: "Search Preferences", route: "/dashboard/search-preferences" },
@@ -43,8 +40,11 @@ function AppSidebar() {
             <p className="text-sm text-muted-foreground">ID - {currentUser.id}</p>
           </div>
         </div>
-        <Button onClick={() => router.push('/dashboard/upgrade')} className="w-full bg-primary text-primary-foreground hover:bg-primary/90">Upgrade Membership</Button>
-        <p className="text-xs text-center text-muted-foreground">UPTO 53% OFF ALL MEMBERSHIP PLANS</p>
+        <Link href="/dashboard/upgrade" prefetch={true}>
+          <Button className="w-full bg-primary">
+            <p className="text-xs text-center text-muted-foreground">UPTO 53% OFF ALL MEMBERSHIP</p>
+          </Button>
+        </Link>
       </div>
       <Separator />
       <div className="flex-1 overflow-y-auto">
@@ -52,7 +52,7 @@ function AppSidebar() {
           <ul>
             {menuItems.map((item, index) => (
               <li key={index}>
-                <Link href={item.route} className="flex items-center justify-between px-4 py-3 hover:bg-muted cursor-pointer">
+                <Link href={item.route} prefetch={true} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted cursor-pointer">
                   <div className="flex items-center gap-4">
                     <item.icon className="h-5 w-5 text-muted-foreground" />
                     <span>{item.text}</span>
@@ -81,18 +81,15 @@ export function ProfilePage() {
   }, []);
 
   const profileSections = [
-    { icon: UserCircle, title: "Personal Details", description: "Name, Age, Contact", route: "/dashboard/profile/personal-details" },
-    { icon: GraduationCap, title: "Educational Details", description: "Degree, University, Enrollment", route: "/dashboard/profile/educational-details" },
-    { icon: Briefcase, title: "Practice Information", description: "Court, Specialization, Experience", route: "/dashboard/profile/practice-information" },
-    { icon: MapPin, title: "Location Details", description: "Address, City, Country", route: "/dashboard/profile/location-details" },
-    { icon: BookUser, title: "Career & Info", description: "Firm, Position, Languages", route: "/dashboard/profile/career-info" },
-    { icon: CalendarClock, title: "Availability", description: "Consultation, Hours, Days", route: "/dashboard/profile/availability" },
-    { icon: Settings, title: "Account Settings", description: "Privacy, Password, Notifications", route: "/dashboard/profile/account-settings" },
+    { icon: UserCircle, title: "Basic Information", description: "Name, age, location" },
+    { icon: Briefcase, title: "Career Info", description: "Profession, education" },
+    { icon: Info, title: "About Me", description: "Bio, interests, hobbies" },
+    { icon: Shield, title: "Verification", description: "ID proof, selfie" },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-10 flex items-center justify-between h-16 px-4 md:px-6 bg-card border-b">
+      <header className="sticky top-0 z-10 flex items-center justify-between h-16 px-4 md:px-6 border-b border-border bg-background">
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="icon" onClick={() => router.back()}>
             <ArrowLeft className="h-5 w-5" />
@@ -141,13 +138,13 @@ export function ProfilePage() {
         </div>
 
         <Card className="mb-6">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardHeader className="pb-2">
             <CardTitle className="text-base font-medium">Profile Completeness</CardTitle>
             <span className="text-sm font-bold text-primary">70%</span>
           </CardHeader>
           <CardContent className="p-6 pt-0">
             <Progress value={70} aria-label="70% profile completeness" />
-            <p className="text-xs text-muted-foreground mt-2">Complete your profile to get more visibility</p>
+            <p className="text-xs text-muted-foreground mt-2">Complete your profile to get more matches</p>
           </CardContent>
         </Card>
 
