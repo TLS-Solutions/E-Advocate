@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -67,7 +68,7 @@ const clientRequests = [
   },
 ];
 
-export function WelcomePage () {
+export function WelcomePage() {
   const router = useRouter();
   const [tab, setTab] = useState("advocates");
 
@@ -168,21 +169,19 @@ export function WelcomePage () {
           <div className="flex justify-center gap-4 mb-12">
             <button
               onClick={() => setTab("advocates")}
-              className={`px-5 py-2 rounded-lg text-sm font-semibold border ${
-                tab === "advocates"
-                  ? "bg-darkbg text-darktext dark:bg-lightbg dark:text-lighttext"
-                  : "bg-transparent text-lighttext dark:text-darktext border-lightborder dark:border-darkborder"
-              }`}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold border ${tab === "advocates"
+                ? "bg-darkbg text-darktext dark:bg-lightbg dark:text-lighttext"
+                : "bg-transparent text-lighttext dark:text-darktext border-lightborder dark:border-darkborder"
+                }`}
             >
               Browse Advocates
             </button>
             <button
               onClick={() => setTab("clients")}
-              className={`px-5 py-2 rounded-lg text-sm font-semibold border ${
-                tab === "clients"
-                  ? "bg-darkbg text-darktext dark:bg-lightbg dark:text-lighttext"
-                  : "bg-transparent text-lighttext dark:text-darktext border-lightborder dark:border-darkborder"
-              }`}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold border ${tab === "clients"
+                ? "bg-darkbg text-darktext dark:bg-lightbg dark:text-lighttext"
+                : "bg-transparent text-lighttext dark:text-darktext border-lightborder dark:border-darkborder"
+                }`}
             >
               Browse Client Requests
             </button>
@@ -212,21 +211,17 @@ export function WelcomePage () {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="font-medium">{a.practice}</span>
-                    <span className="flex items-center gap-1">
-                      <FaStar className="text-yellow-400" /> {a.rating}
-                    </span>
                   </div>
                   <div className="text-sm space-y-1">
                     <p>Experience: {a.experience}</p>
-                    <p>Fee: {a.fee}</p>
                   </div>
                   <div className="flex gap-3 pt-2">
-                    <button className="flex-1 px-3 py-2 text-sm rounded border border-lightborder dark:border-darkborder hover:bg-accent ">
+                    <Link href="/dashboard/profile" className="flex-1 px-3 py-2 text-sm rounded border border-lightborder dark:border-darkborder hover:bg-accent flex items-center justify-center">
                       View Profile
-                    </button>
-                    <button className="flex-1 px-3 py-2 text-sm rounded   bg-accent text-white hover:bg-accentHover">
+                    </Link>
+                    <Link href="/contact" className="flex-1 px-3 py-2 text-sm rounded bg-accent text-white hover:bg-accentHover flex items-center justify-center">
                       Contact
-                    </button>
+                    </Link>
                   </div>
                 </motion.div>
               ))}
@@ -258,9 +253,9 @@ export function WelcomePage () {
                     {c.description}
                   </p>
                   <div className="pt-3 text-center">
-                    <button className="px-4 py-2 text-sm font-semibold rounded bg-accent text-white hover:bg-accentHover">
+                    <Link href="/dashboard/file-a-case" className="px-4 py-2 text-sm font-semibold rounded bg-accent text-white hover:bg-accentHover inline-block">
                       Apply for this Case
-                    </button>
+                    </Link>
                   </div>
                 </motion.div>
               ))}
@@ -280,12 +275,29 @@ export function WelcomePage () {
             Stay informed with the latest updates, legal tips, and awareness
             articles from verified advocates.
           </p>
-          <button
-            onClick={() => window.open("/blog", "_blank")}
-            className="px-6 py-2  bg-accent text-white rounded-lg hover:bg-accentHover"
+          <Link
+            href="/blog"
+            target="_blank"
+            className="px-6 py-2 bg-accent text-white rounded-lg hover:bg-accentHover inline-block"
           >
             Open Blog
-          </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Ready to Get Connect Section */}
+      <section className="bg-black text-white py-20 px-4 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4">Ready to Get Connect?</h2>
+          <p className="text-lg text-gray-300 mb-8">
+            Join thousands of legal professionals and clients who trust E-Advocate Services
+          </p>
+          <Link
+            href="/register"
+            className="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 inline-block transition-colors"
+          >
+            Create Your Profile Today
+          </Link>
         </div>
       </section>
 
@@ -299,12 +311,12 @@ export function WelcomePage () {
           <p className="text-lg text-lighttextSecondary dark:text-darktextSecondary mb-8">
             Contact our support team for any inquiries or guidance.
           </p>
-          <button
-            onClick={() => router.push("/contact")}
-            className="px-6 py-3  bg-accent text-white rounded-lg hover:bg-accentHover"
+          <Link
+            href="/contact"
+            className="px-6 py-3 bg-accent text-white rounded-lg hover:bg-accentHover inline-block"
           >
             Contact Support
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -335,11 +347,11 @@ export function WelcomePage () {
 //     <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
 //         <div className="flex-1 flex flex-col items-center justify-center p-8">
 //             <div>
-//                  <video 
-//                     src="https://videos.pexels.com/video-files/853877/853877-hd_1280_720_25fps.mp4" 
-//                     autoPlay 
-//                     loop 
-//                     muted 
+//                  <video
+//                     src="https://videos.pexels.com/video-files/853877/853877-hd_1280_720_25fps.mp4"
+//                     autoPlay
+//                     loop
+//                     muted
 //                     playsInline
 //                     className="rounded-full object-cover h-48 w-48"
 //                     width="200"

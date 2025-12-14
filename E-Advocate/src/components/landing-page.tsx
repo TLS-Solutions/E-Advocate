@@ -1,6 +1,7 @@
 
 "use client"
 
+import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Scale, CircleUserRound, ArrowLeft } from "lucide-react"
 import React, { useState } from "react"
@@ -31,7 +32,7 @@ export function LandingPage() {
     currentParams.set('tab', value);
     router.push(`?${currentParams.toString()}`);
   };
-  
+
   const handleBack = () => {
     if (fromLogin) {
       router.push('/');
@@ -55,21 +56,21 @@ export function LandingPage() {
               <Button variant="ghost" onClick={handleBack} className="p-0 h-auto">
                 <ArrowLeft className="mr-2 h-4 w-4" /> Back
               </Button>
-               <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground capitalize">
-                  {fromLogin ? (
-                      <>
-                          <CircleUserRound className="h-5 w-5" /> / <Scale className="h-5 w-5" />
-                          <span>Client / Lawyer</span>
-                      </>
-                  ) : (
-                      <>
-                          {isClient ? <CircleUserRound className="h-5 w-5" /> : <Scale className="h-5 w-5" />}
-                          <span>{role}</span>
-                      </>
-                  )}
-               </div>
+              <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground capitalize">
+                {fromLogin ? (
+                  <>
+                    <CircleUserRound className="h-5 w-5" /> / <Scale className="h-5 w-5" />
+                    <span>Client / Lawyer</span>
+                  </>
+                ) : (
+                  <>
+                    {isClient ? <CircleUserRound className="h-5 w-5" /> : <Scale className="h-5 w-5" />}
+                    <span>{role}</span>
+                  </>
+                )}
+              </div>
             </div>
-            
+
             <div className="text-center mb-4">
               <h2 className="text-2xl font-bold">Welcome</h2>
               <p className="text-muted-foreground">Access your {fromLogin ? '' : role} dashboard</p>
@@ -87,28 +88,30 @@ export function LandingPage() {
                     <Input id="email-login" type="email" placeholder="m@example.com" required />
                   </div>
                   <div className="space-y-2">
-                      <Label htmlFor="password-login">Password</Label>
-                      <Input id="password-login" type="password" required />
+                    <Label htmlFor="password-login">Password</Label>
+                    <Input id="password-login" type="password" required />
                   </div>
                   <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                          <Checkbox id="remember-me" />
-                          <Label htmlFor="remember-me" className="text-sm font-normal">Remember me</Label>
-                      </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="remember-me" />
+                      <Label htmlFor="remember-me" className="text-sm font-normal">Remember me</Label>
+                    </div>
                   </div>
                   <Button type="submit" className="w-full">Sign In</Button>
                 </form>
               </TabsContent>
               <TabsContent value="register" className="mt-6">
-                 {isClient ? (
-                   <p className="text-center text-muted-foreground">Please complete the registration via the client portal.</p>
-                 ) : (
-                   <LawyerRegistrationForm />
-                 )}
+                {isClient ? (
+                  <p className="text-center text-muted-foreground">Please complete the registration via the client portal.</p>
+                ) : (
+                  <LawyerRegistrationForm />
+                )}
               </TabsContent>
             </Tabs>
             <div className="mt-6 text-center">
-              <Button variant="link" className="p-0 h-auto text-sm">Need help? Contact Support</Button>
+              <Button variant="link" asChild className="p-0 h-auto text-sm">
+                <Link href="/contact">Need help? Contact Support</Link>
+              </Button>
             </div>
           </CardContent>
         </Card>
