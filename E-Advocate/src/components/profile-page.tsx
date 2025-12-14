@@ -3,6 +3,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Camera, FilePen, Info, UserCircle, Shield, Briefcase, Settings, Star, Search, Users, HelpCircle, BookOpen, ChevronRight, Menu, Award, Ticket, ShieldCheck, GraduationCap, MapPin, CalendarClock, BookUser, CheckCircle, Edit, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -51,19 +52,19 @@ function AppSidebar() {
           <ul>
             {menuItems.map((item, index) => (
               <li key={index}>
-                <a onClick={() => item.route && router.push(item.route)} className="flex items-center justify-between px-4 py-3 hover:bg-muted cursor-pointer">
+                <Link href={item.route} className="flex items-center justify-between px-4 py-3 hover:bg-muted cursor-pointer">
                   <div className="flex items-center gap-4">
                     <item.icon className="h-5 w-5 text-muted-foreground" />
                     <span>{item.text}</span>
                   </div>
                   <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
       </div>
-       <Separator />
+      <Separator />
     </div>
   );
 }
@@ -71,7 +72,7 @@ function AppSidebar() {
 export function ProfilePage() {
   const router = useRouter();
   const [profileStatus, setProfileStatus] = React.useState<"verified" | "review">("verified");
-  
+
   React.useEffect(() => {
     const status = sessionStorage.getItem('profileStatus') as "verified" | "review";
     if (status) {
@@ -117,24 +118,24 @@ export function ProfilePage() {
           </div>
           <div>
             <h2 className="text-2xl font-bold">{currentUser.name}</h2>
-             <div className="flex items-center gap-2 mt-1">
-                {profileStatus === 'verified' ? (
-                    <Badge variant="default" className="bg-green-500 hover:bg-green-600">
-                        <CheckCircle className="h-4 w-4 mr-1" />
-                        Verified
-                    </Badge>
-                ) : (
-                    <Badge variant="secondary" className="bg-yellow-400 text-black hover:bg-yellow-500">
-                        <Clock className="h-4 w-4 mr-1" />
-                        Under Review
-                    </Badge>
-                )}
-                {currentUser.verified && currentUser.barCouncilId && (
-                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                        <ShieldCheck className="h-5 w-5 text-blue-500" />
-                        <span>{currentUser.barCouncilId}</span>
-                    </div>
-                )}
+            <div className="flex items-center gap-2 mt-1">
+              {profileStatus === 'verified' ? (
+                <Badge variant="default" className="bg-green-500 hover:bg-green-600">
+                  <CheckCircle className="h-4 w-4 mr-1" />
+                  Verified
+                </Badge>
+              ) : (
+                <Badge variant="secondary" className="bg-yellow-400 text-black hover:bg-yellow-500">
+                  <Clock className="h-4 w-4 mr-1" />
+                  Under Review
+                </Badge>
+              )}
+              {currentUser.verified && currentUser.barCouncilId && (
+                <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <ShieldCheck className="h-5 w-5 text-blue-500" />
+                  <span>{currentUser.barCouncilId}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -149,19 +150,21 @@ export function ProfilePage() {
             <p className="text-xs text-muted-foreground mt-2">Complete your profile to get more visibility</p>
           </CardContent>
         </Card>
-        
+
         <div className="space-y-4">
           {profileSections.map((section, index) => (
-            <Card key={index} className="p-4 flex items-center gap-4 cursor-pointer hover:bg-muted/50" onClick={() => router.push(section.route)}>
-              <div className="bg-muted p-3 rounded-lg">
-                <section.icon className="h-6 w-6 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-bold">{section.title}</h3>
-                <p className="text-sm text-muted-foreground">{section.description}</p>
-              </div>
-              <Edit className="h-5 w-5 text-muted-foreground" />
-            </Card>
+            <Link key={index} href={section.route} className="block">
+              <Card className="p-4 flex items-center gap-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                <div className="bg-muted p-3 rounded-lg">
+                  <section.icon className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold">{section.title}</h3>
+                  <p className="text-sm text-muted-foreground">{section.description}</p>
+                </div>
+                <Edit className="h-5 w-5 text-muted-foreground" />
+              </Card>
+            </Link>
           ))}
         </div>
       </main>

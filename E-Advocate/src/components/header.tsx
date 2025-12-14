@@ -35,8 +35,12 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => router.push('/dashboard')}>By Criteria</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push('/dashboard/search-by-keyword')}>By Keyword</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard" className="w-full cursor-pointer">By Criteria</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/search-by-keyword" className="w-full cursor-pointer">By Keyword</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <Link
@@ -46,19 +50,19 @@ export function Header() {
               Browse Profiles
             </Link>
             <Link
-              href="#"
+              href="/blog"
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
               Blog
             </Link>
-             <Link
-              href="#"
+            <Link
+              href="/about"
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
               About
             </Link>
-             <Link
-              href="/dashboard/help-support"
+            <Link
+              href="/contact"
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
               Help
@@ -66,28 +70,32 @@ export function Header() {
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
-            <Button variant="outline" onClick={() => router.push('/login?tab=login&from=login')}>Login</Button>
-            <Button onClick={() => router.push('/register')}>Register</Button>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                    <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                    <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                    <span className="sr-only">Toggle theme</span>
-                </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setTheme("light")}>
-                    Light
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                    Dark
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")}>
-                    System
-                </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+          <Button variant="outline" asChild>
+            <Link href="/login?tab=login&from=login">Login</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/register">Register</Link>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                Light
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                Dark
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>
+                System
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>

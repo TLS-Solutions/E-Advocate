@@ -28,10 +28,10 @@ export default function LogoWelcomeAnimation() {
   const [phase, setPhase] = useState<0 | 1 | 2>(0);
 
   useEffect(() => {
-    // image visible for 1.5s, then fade out -> show name after short gap
-    const t1 = setTimeout(() => setPhase(1), 3000); // moves to name
+    // image visible for 1.2s, then fade out -> show name after short gap
+    const t1 = setTimeout(() => setPhase(1), 1200); // moves to name
     // hide name after additional time (name animation + hold)
-    const t2 = setTimeout(() => setPhase(2), 3000 + 2000); // total ~3.9s
+    const t2 = setTimeout(() => setPhase(2), 1200 + 800); // total ~2.0s
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -48,8 +48,8 @@ export default function LogoWelcomeAnimation() {
             key="logo"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: [0.98, 1.12, 1] }}
-            exit={{ opacity: 0, scale: 0.98, transition: { duration: 1 } }}
-            transition={{ duration: 2, ease: "easeInOut" }}
+            exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.5 } }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
             className="flex flex-col items-center justify-center gap-6 p-6"
           >
             <motion.div
@@ -115,10 +115,10 @@ export default function LogoWelcomeAnimation() {
         )}
 
         {phase === 2 && (
-            <main>
-                <DashboardHeader/>
-                <WelcomePage />
-            </main>
+          <main>
+            <DashboardHeader />
+            <WelcomePage />
+          </main>
         )}
       </AnimatePresence>
     </div>

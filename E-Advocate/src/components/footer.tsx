@@ -61,15 +61,15 @@ const Footer = () => {
                 href="/advanced-search"
                 className="hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
-                Advanced Search
+                Advanced Feature
               </Link>
             </li>
             <li>
               <Link
-                href="/success-shrefries"
+                href="/success-stories"
                 className="hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
-                Success Shrefries
+                Success Stories
               </Link>
             </li>
             <li>

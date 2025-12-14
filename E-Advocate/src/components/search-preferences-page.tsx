@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ArrowLeft, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -176,9 +177,11 @@ export function SearchPreferencesPage() {
           </Button>
           <h1 className="text-xl font-bold font-headline">Search Preferences</h1>
         </div>
-        <Button variant="outline" size="sm" onClick={() => router.push('/dashboard/search-by-keyword')}>
+        <Button variant="outline" size="sm" asChild>
+          <Link href="/dashboard/search-by-keyword">
             <Search className="mr-2 h-4 w-4" />
             Keyword Search
+          </Link>
         </Button>
       </header>
       <main className="flex-1 p-4 md:p-6">
@@ -239,8 +242,8 @@ export function SearchPreferencesPage() {
             <Button type="button" variant="outline" onClick={() => router.back()}>Cancel</Button>
             <Button type="submit">Save & Search</Button>
           </div>
-        </form>
-      </main>
-    </div>
+        </form >
+      </main >
+    </div >
   );
 }

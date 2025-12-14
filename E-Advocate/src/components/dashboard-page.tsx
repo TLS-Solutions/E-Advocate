@@ -12,12 +12,13 @@ import { IcebreakerModal } from "@/components/icebreaker-modal";
 import { Chat } from "@/components/chat";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 
 function AppSidebar() {
   const router = useRouter();
-  
+
   const menuItems = [
     { icon: FilePen, text: "Edit Profile", route: "/dashboard/profile" },
     { icon: Users, text: "Search Preferences", route: "/dashboard/search-preferences" },
@@ -52,19 +53,19 @@ function AppSidebar() {
           <ul>
             {menuItems.map((item, index) => (
               <li key={index}>
-                <a onClick={() => item.route && router.push(item.route)} className="flex items-center justify-between px-4 py-3 hover:bg-muted cursor-pointer">
+                <Link href={item.route} className="flex items-center justify-between px-4 py-3 hover:bg-muted cursor-pointer">
                   <div className="flex items-center gap-4">
                     <item.icon className="h-5 w-5 text-muted-foreground" />
                     <span>{item.text}</span>
                   </div>
                   <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
       </div>
-       <Separator />
+      <Separator />
     </div>
   );
 }
@@ -96,15 +97,15 @@ export function DashboardPage() {
           <div className="flex items-center gap-2">
             <Sheet>
               <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                      <Menu className="h-6 w-6" />
-                  </Button>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-6 w-6" />
+                </Button>
               </SheetTrigger>
               <SheetContent side="left" className="p-0 w-[300px] sm:w-[300px]">
-                  <SheetHeader className="p-4">
-                    <SheetTitle className="sr-only">Menu</SheetTitle>
-                  </SheetHeader>
-                  <AppSidebar />
+                <SheetHeader className="p-4">
+                  <SheetTitle className="sr-only">Menu</SheetTitle>
+                </SheetHeader>
+                <AppSidebar />
               </SheetContent>
             </Sheet>
             <div>
@@ -123,9 +124,9 @@ export function DashboardPage() {
 
         <main className="flex-1 p-4 md:p-6">
           <div className="flex justify-end mb-4">
-             <Button variant="outline" size="icon">
-                <Filter className="h-5 w-5" />
-             </Button>
+            <Button variant="outline" size="icon">
+              <Filter className="h-5 w-5" />
+            </Button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
@@ -140,23 +141,23 @@ export function DashboardPage() {
                     className="w-full h-80 object-cover"
                     data-ai-hint="portrait person"
                   />
-                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                   <div className="absolute bottom-0 left-0 p-4 text-white w-full">
-                     <div className="flex justify-between items-end">
-                        <div>
-                            <h2 className="text-2xl font-bold">{profile.name}, {profile.age}</h2>
-                            <p className="text-sm">{profile.location}</p>
-                            <p className="text-sm">5+ years experience</p>
-                            <p className="text-sm">Civil, Criminal Law</p>
-                        </div>
-                        {profile.verified && profile.barCouncilId && (
-                          <div className="flex items-center gap-1.5 text-sm bg-black/30 backdrop-blur-sm px-2 py-1 rounded-lg">
-                            <ShieldCheck className="h-5 w-5 text-blue-400" />
-                            <span>{profile.barCouncilId}</span>
-                          </div>
-                        )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-4 text-white w-full">
+                    <div className="flex justify-between items-end">
+                      <div>
+                        <h2 className="text-2xl font-bold">{profile.name}, {profile.age}</h2>
+                        <p className="text-sm">{profile.location}</p>
+                        <p className="text-sm">5+ years experience</p>
+                        <p className="text-sm">Civil, Criminal Law</p>
                       </div>
-                   </div>
+                      {profile.verified && profile.barCouncilId && (
+                        <div className="flex items-center gap-1.5 text-sm bg-black/30 backdrop-blur-sm px-2 py-1 rounded-lg">
+                          <ShieldCheck className="h-5 w-5 text-blue-400" />
+                          <span>{profile.barCouncilId}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </CardHeader>
 
                 <CardFooter className="p-2 bg-background grid grid-cols-4 gap-1">
@@ -181,25 +182,25 @@ export function DashboardPage() {
             ))}
           </div>
         </main>
-        
+
         <footer className="fixed bottom-0 left-0 right-0 bg-card border-t z-10">
           <div className="flex justify-around items-center h-16">
-            <Button variant="ghost" className="flex flex-col h-auto p-2 text-primary" onClick={() => router.push('/dashboard/results')}>
+            <Link href="/dashboard/results" className="flex flex-col h-auto p-2 text-primary items-center hover:bg-muted/50 rounded-md">
               <Users className="h-6 w-6" />
               <span className="text-xs mt-1">Matches</span>
-            </Button>
-            <Button variant="ghost" className="flex flex-col h-auto p-2 text-muted-foreground" onClick={() => router.push('/dashboard/activity')}>
+            </Link>
+            <Link href="/dashboard/activity" className="flex flex-col h-auto p-2 text-muted-foreground items-center hover:bg-muted/50 rounded-md">
               <History className="h-6 w-6" />
               <span className="text-xs mt-1">Activity</span>
-            </Button>
-            <Button variant="ghost" className="flex flex-col h-auto p-2 text-muted-foreground" onClick={() => router.push('/dashboard/messenger')}>
+            </Link>
+            <Link href="/dashboard/messenger" className="flex flex-col h-auto p-2 text-muted-foreground items-center hover:bg-muted/50 rounded-md">
               <MessagesSquare className="h-6 w-6" />
               <span className="text-xs mt-1">Messenger</span>
-            </Button>
-            <Button variant="ghost" className="flex flex-col h-auto p-2 text-muted-foreground" onClick={() => router.push('/dashboard/my-cases')}>
+            </Link>
+            <Link href="/dashboard/my-cases" className="flex flex-col h-auto p-2 text-muted-foreground items-center hover:bg-muted/50 rounded-md">
               <Briefcase className="h-6 w-6" />
               <span className="text-xs mt-1">My Cases</span>
-            </Button>
+            </Link>
           </div>
         </footer>
 

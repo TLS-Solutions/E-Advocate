@@ -117,11 +117,10 @@ export function DashboardHeader() {
   const navLink =
     "relative text-lg font-medium transition-colors cursor-pointer after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 hover:after:w-full hover:text-lighttext/80 dark:hover:text-darktext/80";
 
-  const dropdownClass = `absolute left-0 mt-2 w-64 rounded-lg shadow-xl z-50 border-2 ${
-    mounted && resolvedTheme === "dark"
-      ? "border-white bg-black text-white"
-      : "border-black bg-black text-white"
-  }`;
+  const dropdownClass = `absolute left-0 mt-2 w-64 rounded-lg shadow-xl z-50 border-2 ${mounted && resolvedTheme === "dark"
+    ? "border-white bg-black text-white"
+    : "border-black bg-black text-white"
+    }`;
 
   const dropdownItemClass =
     "flex items-center gap-3 px-4 py-3 text-base rounded-md hover:bg-gray-700 cursor-pointer";
@@ -166,7 +165,7 @@ export function DashboardHeader() {
                   setProfileMenuOpen(false);
                 }}
               >
-                <span className={navLink}>Browse Profiles</span>
+                <Link href="/dashboard/results" className={navLink}>Browse Profiles</Link>
                 <AnimatePresence>
                   {profileMenuOpen && (
                     <motion.div
@@ -258,21 +257,21 @@ export function DashboardHeader() {
                 </AnimatePresence>
               </div>
 
-              <span
-                onClick={() => scrollToSection("about")}
+              <Link
+                href="/about"
                 className={navLink}
               >
                 About
-              </span>
-              <span
-                onClick={() => window.open("/blog", "_blank")}
+              </Link>
+              <Link
+                href="/blog"
                 className={navLink}
               >
                 Blog
-              </span>
-              <span onClick={() => scrollToSection("help")} className={navLink}>
+              </Link>
+              <Link href="/contact" className={navLink}>
                 Help
-              </span>
+              </Link>
             </nav>
 
             {/* Search */}
@@ -293,18 +292,18 @@ export function DashboardHeader() {
 
           {/* Right Controls */}
           <div className="hidden md:flex gap-4">
-            <button
-              onClick={() => router.push("/login")}
-              className="px-5 py-2 text-sm rounded border border-white text-white bg-black hover:bg-gray-800"
+            <Link
+              href="/login"
+              className="px-5 py-2 text-sm rounded border border-white text-white bg-black hover:bg-gray-800 flex items-center justify-center"
             >
               Login
-            </button>
-            <button
-              onClick={() => router.push("/register")}
-              className="px-5 py-2 text-sm rounded bg-white text-black hover:bg-gray-300 hover:opacity-80"
+            </Link>
+            <Link
+              href="/register"
+              className="px-5 py-2 text-sm rounded bg-white text-black hover:bg-gray-300 hover:opacity-80 flex items-center justify-center"
             >
               Register
-            </button>
+            </Link>
             <button
               onClick={() =>
                 setTheme(mounted && resolvedTheme === "dark" ? "light" : "dark")
@@ -317,9 +316,100 @@ export function DashboardHeader() {
 
           {/* Mobile menu toggle */}
           <button onClick={() => setOpen(!open)} className="md:hidden text-2xl">
-            ☰
+            {open ? "✕" : "☰"}
           </button>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-lightbg dark:bg-darkbg border-t border-lightborder dark:border-darkborder overflow-hidden"
+            >
+              <div className="flex flex-col p-4 space-y-4">
+                <Link
+                  href="/dashboard/results"
+                  className="text-lg font-medium"
+                  onClick={() => setOpen(false)}
+                >
+                  Browse Profiles
+                </Link>
+                <Link
+                  href="/file-case"
+                  className="text-lg font-medium"
+                  onClick={() => setOpen(false)}
+                >
+                  File a Case
+                </Link>
+                <Link
+                  href="/case-status"
+                  className="text-lg font-medium"
+                  onClick={() => setOpen(false)}
+                >
+                  Case Status
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-lg font-medium"
+                  onClick={() => setOpen(false)}
+                >
+                  About
+                </Link>
+                <Link
+                  href="/blog"
+                  className="text-lg font-medium"
+                  onClick={() => setOpen(false)}
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-lg font-medium"
+                  onClick={() => setOpen(false)}
+                >
+                  Help
+                </Link>
+                <div className="flex flex-col gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <Link
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="px-5 py-2 text-sm rounded border border-white text-white bg-black hover:bg-gray-800 w-full flex items-center justify-center"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setOpen(false)}
+                    className="px-5 py-2 text-sm rounded bg-white text-black hover:bg-gray-300 hover:opacity-80 w-full flex items-center justify-center"
+                  >
+                    Register
+                  </Link>
+                  <button
+                    onClick={() =>
+                      setTheme(mounted && resolvedTheme === "dark" ? "light" : "dark")
+                    }
+                    className="px-3 py-2 rounded-full border hover:bg-gray-600 border-white w-full flex justify-center items-center gap-2"
+                  >
+                    {mounted ? (
+                      resolvedTheme === "dark" ? (
+                        <>
+                          <Sun className="h-4 w-4" /> Light Mode
+                        </>
+                      ) : (
+                        <>
+                          <Moon className="h-4 w-4" /> Dark Mode
+                        </>
+                      )
+                    ) : null}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
     </main>
   );
